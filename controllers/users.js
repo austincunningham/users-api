@@ -43,8 +43,8 @@ router.get('/:id', function (req, res) {
 router.delete('/:id', function (req, res) {
   User.findOne({
     _id: req.params.id,
-  }, function (error, user) {
-    if (error) {
+  }, function (err, user) {
+    if (err) {
       return res.status(500).json({
         error: 'Error reading user: ' + error,
       });
@@ -59,11 +59,29 @@ router.delete('/:id', function (req, res) {
 });
 
 // CREATE users
+// create new user using POST
 router.post('/', function (req, res, next) {
   User.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
+});
+
+//Update User
+//find user by id and update using PUT
+router.put('/:id', function (req, res) {
+  const updateUser = req.payload;
+  User.findByIdAndUpdate({ _id: req.params.id }, updateUser, function (err, user) {
+        if (err) {
+          return res.status(500).end();
+        }
+
+        if (!user) {
+          return res.status(404).end();
+        }
+
+        console.log(user);
+      });
 });
 
 module.exports = router;
