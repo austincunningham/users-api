@@ -38,7 +38,7 @@ router.get('/:id', function (req, res) {
   });
 });
 
-// DELETE /users/delete/:id
+// DELETE /users/:id
 // Get an user by ID and DElETE
 router.delete('/:id', function (req, res) {
   User.findOne({
@@ -55,7 +55,7 @@ router.delete('/:id', function (req, res) {
 
     }
 
-  }).remove();
+  }).remove().exec();
 });
 
 module.exports = router;
