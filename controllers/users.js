@@ -67,11 +67,12 @@ router.post('/', function (req, res, next) {
   });
 });
 
-//Update User
-//find user by id and update using PUT
+//Update id
+//find user by id and update PUT
 router.put('/:id', function (req, res) {
-  const updateUser = req.payload;
-  User.findByIdAndUpdate({ _id: req.params.id }, updateUser, function (err, user) {
+  const updateUser = req.body;
+  User.findByIdAndUpdate({ _id: req.params.id }, { $set: updateUser }, { new: true },
+      function (err, user) {
         if (err) {
           return res.status(500).end();
         }
