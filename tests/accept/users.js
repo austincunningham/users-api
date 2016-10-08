@@ -58,4 +58,26 @@ describe('Users', function() {
       });
     });
   });
+
+
+  describe('/DELETE users/:id', function() {
+    it('should return a single user', function(done) {
+      // Find a user in the DB
+      User.findOne({}, function(err, user) {
+        var id = user._id;
+
+        // Read this user by id
+        chai.request(url)
+            .get('/users/' + id)
+            .end(function(err, res) {
+              res.should.have.status(200);
+              //expect(res.body).to.be.a('object');
+              //expect(res.body.name.first).to.be.a('string');
+              done();
+            });
+      });
+    });
+  });
+
+
 });
