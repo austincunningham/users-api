@@ -40,7 +40,7 @@ router.get('/:id', function(req, res) {
 
 // DELETE /users/delete/:id
 // Get an user by ID and DElETE
-router.get('/delete/:id', function (req, res) {
+router.delete('/delete/:id', function (req, res) {
   User.findOne({
     _id: req.params.id,
   }, function (error, user) {
