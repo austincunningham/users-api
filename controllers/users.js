@@ -1,5 +1,3 @@
-
-
 var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
@@ -41,8 +39,18 @@ router.get('/:id', function (req, res) {
 // DELETE /users/:id
 // Get an user by ID and DElETE
 router.delete('/:id', function (req, res) {
+  User.remove({ _id: req.params.id }, function (err, user) {
+    if (err) {
+      return res.status(500).json;
+    }
+
+    res.json({ message: `deleted user ${req.params.id}` });
+  });
+});
+
+/*router.delete('/:id', function (req, res) {
   User.findOne({
-    _id: req.params.id,
+    _id: req.params.id
   }, function (err, user) {
     if (err) {
       return res.status(500).json({
@@ -51,12 +59,13 @@ router.delete('/:id', function (req, res) {
     }
 
     if (!user) {
-      return res.status(200).end();//cheat for now change 404 to 200 will look at again later
+      return res.status(404).end();//cheat for now change 404 to 200 will look at again later
 
     }
 
   }).remove().exec();
-});
+});*/
+
 
 // CREATE users
 // create new user using POST

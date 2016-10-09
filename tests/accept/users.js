@@ -71,8 +71,7 @@ describe('Users', function() {
             .get('/users/' + id)
             .end(function(err, res) {
               res.should.have.status(200);
-              //expect(res.body).to.be.a('object');
-              //expect(res.body.name.first).to.be.a('string');
+              expect(res.body).to.be.a('undefined');
               done();
             });
       });
