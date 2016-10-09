@@ -44,35 +44,20 @@ router.delete('/:id', function (req, res) {
       return res.status(500).json;
     }
 
+    if (!user) {
+      return res.status(404).end();
+    }
+
     res.json({ message: `deleted user ${req.params.id}` });
   });
 });
-
-/*router.delete('/:id', function (req, res) {
-  User.findOne({
-    _id: req.params.id
-  }, function (err, user) {
-    if (err) {
-      return res.status(500).json({
-        error: 'Error reading user: ' + error,
-      });
-    }
-
-    if (!user) {
-      return res.status(404).end();//cheat for now change 404 to 200 will look at again later
-
-    }
-
-  }).remove().exec();
-});*/
-
 
 // CREATE users
 // create new user using POST
 router.post('/', function (req, res, next) {
   User.create(req.body, function (err, post) {
     if (err) return next(err);
-    res.json(post);
+    res.status(201).json(post);
   });
 });
 

@@ -7,10 +7,14 @@ var marked = require('marked');
 var fs = require('fs');
 var logger = require('winston');
 var userController = require('./controllers/users');
+// Added to parse json files that are posted or put
+var bodyParser = require('body-parser');
 
 var app = express();
 
 // Add middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev'));
