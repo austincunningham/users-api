@@ -19,9 +19,7 @@ router.get('/', function (req, res) {
 // GET /users/:id
 // Get a user by ID
 router.get('/:id', function (req, res) {
-  User.findOne({
-    _id: req.params.id,
-  }, function (err, user) {
+  User.findOne({ _id: req.params.id, }, function (err, user) {
     if (err) {
       return res.status(500).json({
         error: 'Error reading user: ' + err,
@@ -48,7 +46,7 @@ router.delete('/:id', function (req, res) {
       return res.status(404).end();
     }
 
-    res.json({ message: `deleted user ${req.params.id}` });
+    res.status(200).json({ message: `deleted user ${req.params.id}` });
   });
 });
 
@@ -57,7 +55,7 @@ router.delete('/:id', function (req, res) {
 router.post('/', function (req, res, next) {
   User.create(req.body, function (err, post) {
     if (err) return next(err);
-    res.status(201).json(post);
+    res.status(200).json(post);
   });
 });
 
@@ -75,7 +73,7 @@ router.put('/:id', function (req, res) {
           return res.status(404).end();
         }
 
-        res.send('Done');
+        res.status(200).send('Done');
       });
 });
 
