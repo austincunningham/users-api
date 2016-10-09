@@ -1,4 +1,4 @@
-var logger = require('winston');
+var logger = require('winston');// jscs:ignore validateLineBreaks
 var server = require('../../app');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
@@ -58,13 +58,14 @@ describe('Users', function () {
     });
   });
 
+  // should be pretty similar to get/:id
   describe('/DELETE users/:id', function () {
     it('should return a single user', function (done) {
       // Find a user in the DB
       User.findOne({}, function (err, user) {
         var id = user._id;
 
-        // Read this user by id
+        // delete this user by id
         chai.request(url)
             .delete('/users/' + id)
             .end(function (err, res) {
@@ -76,8 +77,9 @@ describe('Users', function () {
     });
   });
 
+  //checking the returns, should be pretty similar to /GET
   describe('/POST users', function () {
-    it('should return a list of users', function (done) {
+    it('should create a new user', function (done) {
       chai.request(url)
           .post('/users')
           .end(function (err, res) {
@@ -88,11 +90,14 @@ describe('Users', function () {
     });
   });
 
-  // TODO not happy with this test more work required
+  // not sure how these test work so will check the returns
   describe('/PUT users/:id', function () {
     it('should return a single user', function (done) {
       User.findOne({}, function (err, user) {
+        // find a single user in DB
         var id = user._id;
+
+        //update user with put
         chai.request(url)
             .put('/users/' + id)
             .end(function (err, res) {
