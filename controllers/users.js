@@ -39,7 +39,9 @@ router.get('/:id', function (req, res) {
 router.delete('/:id', function (req, res) {
   User.remove({ _id: req.params.id }, function (err, user) {
     if (err) {
-      return res.status(500).json;
+      return res.status(500).json({
+        error: 'Error reading user: ' + err,
+      });
     }
 
     if (!user) {
@@ -63,17 +65,20 @@ router.post('/', function (req, res, next) {
 //find user by id and update PUT
 router.put('/:id', function (req, res) {
   const updateUser = req.body;
+
   User.findByIdAndUpdate({ _id: req.params.id },  updateUser, { new: true },
       function (err, user) {
         if (err) {
-          return res.status(500).end();
+          return res.status(500).json({
+            error: 'Error reading user: ' + err,
+          });
         }
 
         if (!user) {
           return res.status(404).end();
         }
 
-        res.status(200).send('Done');
+        res.status(200).send('User ' + req.param.id + ' updated');
       });
 });
 
