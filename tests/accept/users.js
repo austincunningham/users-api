@@ -88,7 +88,7 @@ describe('Users', function () {
     });
   });
 
-  // not happy with this test more work required
+  // TODO not happy with this test more work required
   describe('/PUT users/:id', function () {
     it('should return a single user', function (done) {
       User.findOne({}, function (err, user) {

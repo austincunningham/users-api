@@ -37,7 +37,7 @@ router.get('/:id', function (req, res) {
 // DELETE /users/:id
 // Get an user by ID and DElETE
 router.delete('/:id', function (req, res) {
-  User.remove({ _id: req.params.id }, function (err, user) {
+  User.findOneAndRemove({ _id: req.params.id }, function (err, user){
     if (err) {
       return res.status(500).json({
         error: 'Error reading user: ' + err,
@@ -52,6 +52,7 @@ router.delete('/:id', function (req, res) {
   });
 });
 
+
 // CREATE users
 // create new user using POST
 router.post('/', function (req, res, next) {
@@ -65,7 +66,6 @@ router.post('/', function (req, res, next) {
 //find user by id and update PUT
 router.put('/:id', function (req, res) {
   const updateUser = req.body;
-
   User.findByIdAndUpdate({ _id: req.params.id },  updateUser, { new: true },
       function (err, user) {
         if (err) {
@@ -78,7 +78,7 @@ router.put('/:id', function (req, res) {
           return res.status(404).end();
         }
 
-        res.status(200).send('User ' + req.param.id + ' updated');
+        res.status(200).json({ message: 'User ' + user._id + ' updated' });
       });
 });
 

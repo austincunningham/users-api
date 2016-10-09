@@ -202,7 +202,9 @@ Returns a list of Users
     }
   });
   ```
-----
+
+
+
 **Delete User**
 ----
   Deletes a single user.
